@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Juan Pablo Pinedo">
+  <title>Twizzler - User profile</title>
+  <link rel="stylesheet" href="css/pico.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="container">
+      <ul>
+        <li><image src="images/logo.png" alt="Twizzler logo" class="logo"/></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container" id="results">
+  
+  <article class="flex">
+    <div>
+      <!-- Smily face image will change color with the one specified in the form -->
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" fill="#4c9feb" stroke="black" stroke-width="5" id="color-smile" />
+        <circle cx="35" cy="40" r="5" fill="black"/>
+        <circle cx="65" cy="40" r="5" fill="black"/>
+        <path d="M 35 65 Q 50 80 65 65" stroke="black" stroke-width="5" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <h4 id="username"></h4>
+      <div id="email"></div>
+      <div id="gender"></div>
+    </div>
+  </article>
+  <article class="grid">
+    <div>
+      <span id="age"></span> 
+    </div>
+    <div>
+      <span id="birthday"></span>
+    </div>
+  </article>
+
+  <div>
+    <p>Bio:</p>
+    <blockquote id="bio"></blockquote>
+  </div>
+  
+  </main>
+  <footer class="site-footer">
+    <div class="container flex flex-apart">
+      <p><a href="index.html">Back to Form</a></p>
+      <p>
+        <small>I used the <a href="https://picocss.com">Pico CSS</a> library when I coded this exercise.</small>
+      </p>
+    </div>
+    
+  </footer>
+  
+  <script>
+    // generic add link for missing values
+    const addLink = '<a href="index.html">Add here</a>';
+    let content;
+
+    // loop the url params to populate de DOM
+    new URLSearchParams(window.location.search).forEach((value, param) => {
+
+      // apply logic depending on the parameter name
+      switch(param) {
+        case "color":
+          // add the color to the SVG image
+          document.getElementById('color-smile').setAttribute('fill', value || '#4c9feb');
+          break;
+        case "bio":
+          // add the bio text or a link to the form
+          content = value && value.length ? value : `No bio... ${addLink}`;
+          document.getElementById('bio').innerHTML = content;
+          break;
+        case "email":
+        case "username":
+          // add the value inside elements where id is the same as parameter name
+          document.getElementById(param).innerHTML = value;
+          break;
+        case "gender":
+          // add the gender value or a default text
+          content = value && value.length ? value : 'Prefer not to say';
+          document.getElementById('gender').innerHTML = content;
+          break;
+        case "age":
+          // add the age value or a link to the forn
+          content = value && value.length ? `${value} years old` : `No age specified... ${addLink}`;
+          document.getElementById('age').innerHTML = content;
+          break;
+        case "birthday":
+          // add the birthday value or link to the form
+          content = value && value.length ? `Born in ${value}` : `No birthday specified... ${addLink}`;
+          document.getElementById('birthday').innerHTML = content;
+          break;
+        default: break;
+      }
+    });
+
+  </script>
+
+</body>
+</html>

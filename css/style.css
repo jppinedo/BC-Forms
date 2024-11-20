@@ -1,0 +1,33 @@
+button[type="reset"], button[type="submit"] {
+    width: inherit;
+}
+.site-header {
+    border-bottom: 1px solid #30393e;
+    margin-bottom: 2rem;
+}
+.logo {
+    width: 200px;
+    height: auto;
+}
+.buttons {
+    margin-top: 4rem; 
+    margin-bottom: 2rem; 
+}
+#image-preview {
+    border-radius: 2rem;
+    border: 1px solid #426382;
+    max-width: 200px;
+    height: auto;
+}
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.flex-apart {
+    justify-content: space-between !important;
+}
+.site-footer {
+    border-top: 1px solid #30393e;
+    margin-top: 2rem;
+}

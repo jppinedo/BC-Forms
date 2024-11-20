@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Juan Pablo Pinedo">
+  <title>Twizzler - Create profile</title>
+  <link rel="stylesheet" href="css/pico.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="container">
+      <ul>
+        <li><image src="images/logo.png" alt="Twizzler logo" class="logo"/></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    <hgroup>
+      <h2>Welcome to Twizzler!</h2>
+      <p>We want to know about you. Please fill the information below to create your profile page.</p>
+    </hgroup>
+
+    <form action="results.html" method="GET" id="signup-form">
+      <div class="grid">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div>
+          <label for="gender">Gender:</label> 
+          <select id="gender" name="gender">
+            <option value="male">Male</option> 
+            <option value="female">Female</option> 
+            <option value="other">Other</option> 
+            <option value="prefer-not-to-say">Prefer not to say</option> 
+          </select>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label for="age">Age:</label>
+          <input type="number" id="age" name="age" min="13" max="100" value="18">
+        </div>
+
+        <div>
+          <label for="birthday">Birthday:</label>
+          <input type="date" id="birthday" name="birthday">
+        </div>
+      </div>
+      
+      <label for="bio">Bio:</label>
+      <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+      
+      <div class="grid">
+        <div>
+          <label for="color">Favorite Color:</label>
+          <input type="color" id="color" name="color">
+        </div>
+        <div>
+          <!-- Image for preview is hidden by default -->
+          <img id="image-preview" src="" alt="Image Preview" style="display: none;">
+          <!-- File input wrapper -->
+          <div id="file-input">
+            <label for="file">Profile picture:</label>
+            <input type="file" id="file" accept="image/*"> <!-- file type limited to image only -->
+          </div>
+        </div>
+      </div>
+
+      <label>Profile privacy:</label>
+      <article>
+        <div class="grid mt-2">
+          <div>
+            <label>
+              <input type="radio" name="privacy" value="public">
+              Public:
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="radio" name="privacy" value="private">
+              Private:
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="radio" name="privacy" value="friends">
+              Friends only:
+            </label>
+          </div>
+        </div>
+      </article>
+      
+      <label for="agree">
+        <input type="checkbox" id="agree" name="agree" required>
+        I agree to the terms and conditions:
+      </label>
+
+      <input type="hidden" name="sessionId" id="sessionId" value="3WLRSnhBsG4435KLLkllk3vg34s8d3-fklf03mg93f-3kaADFkadoADfkdod-3kf">    
+      
+      <div class="buttons flex">
+        <button type="reset">Reset</button>
+        <button type="submit" id="submit-btn">Submit</button>
+      </div>
+
+    </form>
+  </main>
+  <script> 
+    // listen for the submit button click
+    document.getElementById('submit-btn').addEventListener('click', function(event) { 
+      // create list of inputs
+      let inputs = document.querySelectorAll('#signup-form input'); 
+
+      // loop inputs
+      inputs.forEach(function(input) { 
+        // set the "aria-invalid" attribute to trigger style changes
+        // Pico CSS library includes different styles depending on this attribute
+        if (!input.validity.valid) { 
+          input.setAttribute('aria-invalid', 'true'); 
+        } else { 
+          input.setAttribute('aria-invalid', 'false'); 
+        } 
+      }); 
+    });
+
+    // listen for the file input change
+    document.getElementById('file').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      // create file reader and render the image
+      if (file) {
+        const reader = new FileReader(); 
+        reader.onload = function(e) { // on file readed
+          // image element
+          const image = document.getElementById('image-preview');
+          // input wrapper element
+          const fileInput = document.getElementById('file-input');
+          image.src = e.target.result; // set image src to file path
+          image.style.display = 'block'; // show the image
+          fileInput.style.display = 'none'; // hide file input
+        };
+        reader.readAsDataURL(file); // start reading file
+      }
+    });
+  </script>
+</body>
+</html>
